@@ -1,35 +1,46 @@
 const request = require('request');
-const { headersSetting } = require('../utils/constants');
-const { BASE_URL = 'https://meltygd.amocrm.ru' } = process.env;
+const { BASE_URL, headersSetting, requestOptionsPipelines, requestOptionsUsers } = require('../utils/constants');
+
+function getLeads(query) {
+  return new Promise((resolve, reject) => {
+    request(
+      {
+        url: `${BASE_URL}/api/v4/leads${query ? `?query=${encodeURI(query)}` : ''}`,
+        headers: headersSetting,
+        json: true
+      },
+      (err, response, body) => {
+        if (response) return resolve(body);
+        if (err) return reject(err);
+      }
+    );
+  });
+}
+
+function getPipelines() {
+  return new Promise((resolve, reject) => {
+    request(requestOptionsPipelines, (err, response, body) => {
+      if (response) return resolve(body);
+      if (err) return reject(err);
+    });
+  });
+}
+
+function getUsers() {
+  return new Promise((resolve, reject) => {
+    request(requestOptionsUsers, (err, response, body) => {
+      if (response) return resolve(body);
+      if (err) return reject(err);
+    });
+  });
+}
 
 module.exports.leads = async (req, res, next) => {
+  const { query } = req.query;
   try {
-    const { query } = req.query;
-    if (query) {
-      request(
-        {
-          url: `${BASE_URL}/api/v4/leads?query=${encodeURI(query)}`,
-          headers: headersSetting,
-          json: true
-        },
-        (err, response, body) => {
-          if (err) return res.status(500).send({ message: err });
-          return res.send(body);
-        }
-      );
-    } else {
-      request(
-        {
-          url: `${BASE_URL}/api/v4/leads`,
-          headers: headersSetting,
-          json: true
-        },
-        (err, response, body) => {
-          if (err) return res.status(500).send({ message: err });
-          return res.send(body);
-        }
-      );
-    }
+    const getAllData = await Promise.all([getLeads(query), getPipelines(), getUsers()]).then((res) => res);
+
+    res.send(getAllData);
   } catch (err) {
     next(err);
   }

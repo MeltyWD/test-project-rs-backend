@@ -1,6 +1,5 @@
 const express = require('express');
-const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
+// const cookieParser = require('cookie-parser');
 const helmet = require('helmet');
 const cors = require('cors');
 const { errors } = require('celebrate');
@@ -23,7 +22,7 @@ app.use(
 );
 
 app.use(helmet());
-app.use(cookieParser());
+// app.use(cookieParser());
 app.use(requestLogger); // подключаем логгер запросов
 
 app.use('/api/', mainRoute);
