@@ -25,7 +25,7 @@ app.use(helmet());
 // app.use(cookieParser());
 app.use(requestLogger); // подключаем логгер запросов
 
-app.use('/api/', mainRoute);
+app.use('/', mainRoute);
 
 app.use(errorLogger); // подключаем логгер ошибок
 app.use(errors());
