@@ -1,4 +1,4 @@
-const allowlist = ['http://localhost:3000', 'https://meltywd.github.io/test-project-rs-frontend'];
+const allowlist = ['http://localhost:3000', 'https://meltywd.github.io'];
 
 const limiterSetting = {
   windowMs: 15 * 60 * 1000, // за 15 минут
