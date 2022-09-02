@@ -2,6 +2,9 @@
 
 ## Создана в рамках тестового задания.
 
+### Страница тестовой работы на heroku - [https://testprojectrs.herokuapp.com/](https://testprojectrs.herokuapp.com/)
+
+
 ## Функционал:
 
 ### Роуты:
