@@ -31,6 +31,7 @@ async function getNewTokenByRefreshToken() {
 
 module.exports = async (req, res, next) => {
   if (Date.now() >= tokenData.expiresIn) {
+    // Проверяем не истек ли срок токена
     const response = await getNewTokenByRefreshToken();
 
     const tokenTakedDate = Date.now();
@@ -44,13 +45,14 @@ module.exports = async (req, res, next) => {
         accessToken: response.access_token,
         tokenTakedDate: tokenTakedDate,
         expiresIn: tokenTakedDate + (response.expires_in * 1000 - 3000)
+        // Сразу указываем дату истечения токена с запасом в 3 секунды
       }),
       (err) => {
         console.log(err);
       }
     );
   } else {
-    req.token = tokenData.accessToken;
+    req.token = tokenData.accessToken; // Если не истек достаем токен из файла
   }
 
   return next(); // пропускаем запрос дальше

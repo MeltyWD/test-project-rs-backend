@@ -7,10 +7,6 @@ const limiterSetting = {
 
 const { BASE_URL = 'https://meltygd.amocrm.ru' } = process.env;
 
-const headersSetting = {
-  'Content-Type': 'application/json'
-};
-
 const requestOptionsPipelines = {
   url: `${BASE_URL}/api/v4/leads/pipelines`,
   headers: {
@@ -31,7 +27,6 @@ module.exports = {
   allowlist,
   limiterSetting,
   BASE_URL,
-  headersSetting,
   requestOptionsPipelines,
   requestOptionsUsers
 };

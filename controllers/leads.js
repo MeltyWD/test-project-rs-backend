@@ -1,5 +1,5 @@
 const request = require('request');
-const { BASE_URL, headersSetting, requestOptionsPipelines, requestOptionsUsers } = require('../utils/constants');
+const { BASE_URL, requestOptionsPipelines, requestOptionsUsers } = require('../utils/constants');
 
 function getLeads(query, token) {
   return new Promise((resolve, reject) => {
