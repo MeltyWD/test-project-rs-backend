@@ -30,6 +30,7 @@ async function getNewTokenByRefreshToken() {
 }
 
 module.exports = async (req, res, next) => {
+  console.log(BASE_URL);
   if (Date.now() >= tokenData.expiresIn) {
     // Проверяем не истек ли срок токена
     const response = await getNewTokenByRefreshToken();
